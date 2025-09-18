@@ -25,7 +25,8 @@ sum=a+b
 avg=(a+b)/2
 print(f'sum={sum:.2f};',f'avg={avg:.2f}')
 ```
-![exe2.png]
+![exe2.png](images/lab01/exe2.png)
+
 
 
 
