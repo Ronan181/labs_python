@@ -4,12 +4,15 @@
 
 <h3>Задание №1:</h3>
 
-<code>name=input()
+<code>
+name=input()
 vozrast=int(input())
 vozrast_1=vozrast+1
 print('Имя:',name)
 print('Возраст:',vozrast)
-print(f'Привет, {name}!',f'Через год тебе будет {vozrast_1}.')</code>
+print(f'Привет, {name}!',f'Через год тебе будет {vozrast_1}.')
+</code>
+
 
 
 
