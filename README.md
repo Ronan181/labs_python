@@ -27,8 +27,10 @@ print(f'sum={sum:.2f};',f'avg={avg:.2f}')
 ```
 ![exe2.png](images/lab01/exe2.png)
 
-```python
+
 <h3>Задание №3:</h3>
+
+```python
 price=float(input())
 discount=float(input())
 vat=float(input())
@@ -40,7 +42,20 @@ print('База после скидки:',  base,'₽')
 print('НДС:',  vat_amount,'₽')
 print('Итого к оплате:',  total,'₽')
 ```
-![exe3.png](
+![exe3.png](images/lab01/exe3.png)
+
+<h3>Задание №4:</h3>
+
+```python
+m=int(input())
+print('Минуты:',m)
+print(f'{(m//60):02d}:{(m%60):02d}')
+```
+![exe4.png](images/lab01/exe4.png)
+
+
+
+
 
 
 
