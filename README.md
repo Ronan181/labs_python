@@ -53,6 +53,18 @@ print(f'{(m//60):02d}:{(m%60):02d}')
 ```
 ![exe4.png](images/lab01/exe4.png)
 
+<h3>Задание №5:</h3>
+
+```python
+f,i,o=(input().split())
+s=str(f)+str(i)+str(o)
+print('ФИО:',f,i,o)
+print(f'Инициалы: {f[0]+i[0]+o[0]}.')
+print('Длина (символов):',len(s))
+```
+![exe5.png](images/lab01/exe5.png)
+
+
 
 
 
