@@ -1,0 +1,5 @@
+f,i,o=(input().split())
+s=str(f)+str(i)+str(o)
+print('ФИО:',f,i,o)
+print(f'Инициалы: {f[0]+i[0]+o[0]}.')
+print('Длина (символов):',len(s))
