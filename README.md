@@ -88,7 +88,6 @@ print('out:', ochnoe_obychenie, zaochnoe_obychenie)
 
 ```python
 s=input('in: ')
-c=''
 for i in range(len(s)):
     if s[i] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
         first_mem=i
@@ -108,6 +107,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
