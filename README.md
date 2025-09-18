@@ -27,6 +27,22 @@ print(f'sum={sum:.2f};',f'avg={avg:.2f}')
 ```
 ![exe2.png](images/lab01/exe2.png)
 
+```python
+<h3>Задание №3:</h3>
+price=float(input())
+discount=float(input())
+vat=float(input())
+
+base=price*(1 - discount/100)
+vat_amount=base * (vat/100)
+total=base+vat_amount
+print('База после скидки:',  base,'₽')
+print('НДС:',  vat_amount,'₽')
+print('Итого к оплате:',  total,'₽')
+```
+![exe3.png](
+
+
 
 
 
