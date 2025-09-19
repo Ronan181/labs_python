@@ -60,7 +60,7 @@ f,i,o=(input().split())
 s=str(f)+str(i)+str(o)
 print('ФИО:',f,i,o)
 print(f'Инициалы: {f[0]+i[0]+o[0]}.')
-print('Длина (символов):',len(s))
+print('Длина (символов):',len(s)+2)
 ```
 ![exe5.png](images/lab01/exe5.png)
 
@@ -107,6 +107,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
