@@ -1,5 +1,4 @@
 s=input('in: ')
-c=''
 for i in range(len(s)):
     if s[i] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
         first_mem=i
