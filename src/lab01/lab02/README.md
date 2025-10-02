@@ -38,4 +38,6 @@ print(flatten([[1, 2], [3, 4]]))
 print(flatten([[1, 2], (3, 4, 5)]))
 print(flatten([[1], [], [2, 3]]))
 ```
+
 ![exe1.png](images/lab02/exe1.png)
+
