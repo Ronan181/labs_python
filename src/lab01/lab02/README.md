@@ -39,8 +39,9 @@ print(flatten([[1, 2], (3, 4, 5)]))
 print(flatten([[1], [], [2, 3]]))
 ```
 
-![exe1.png](images/lab02/exe1.png)
+![exe2.1.png](images/lab02/exe1.png)
 
-![exe1(er).png](images/lab02/exe1(er).png)
+![exe2.1(er).png](images/lab02/exe1(er).png)
+
 
 
