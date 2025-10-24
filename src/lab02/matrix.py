@@ -5,7 +5,6 @@ def transpose(matrix):
     for el_mat in matrix:
         if len(el_mat)!=len(matrix[0]):
             raise ValueError
-        
     result=[]
     for i in range(len(matrix[0])):
         transposes=[]
@@ -58,7 +57,7 @@ print('col_sums')
 print(col_sums([[1, 2, 3], [4, 5, 6]]))
 print(col_sums([[-1, 1], [10, -10]]))
 print(col_sums([[0, 0], [0, 0]]))
-print(col_sums([[1, 2], [3]]))
+# print(col_sums([[1, 2], [3]]))
 
 
 
