@@ -82,7 +82,7 @@ def main():
 main()
 ```
 ![input.png](images/lab04/input.png)
-![exe1.png](images/lab04/exe1.png)
+![exe1.png](images/lab04/exe2.png)
 ![report.png](images/lab04/report.png)
 
 <h1>Лабораторная работа №3</h1>
@@ -407,6 +407,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
