@@ -45,6 +45,8 @@ write_csv([("word","count"),("test",3)], "data/check.csv")
 txt = read_text("data/input.txt") 
 print(txt)
 ```
+![input.png](images/lab04/input.png)
+![exe1.png](images/lab04/exe11.png)
 ![check.png](images/lab04/check.png)
 
 <h3>Задание №2:</h3>
@@ -79,6 +81,7 @@ def main():
         print(f"{word}:{count}")
 main()
 ```
+![input.png](images/lab04/input.png)
 ![exe1.png](images/lab04/exe1.png)
 ![report.png](images/lab04/report.png)
 
