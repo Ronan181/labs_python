@@ -1,5 +1,231 @@
 <h1>Программирование и алгоритмизация(Лабораторные работы)</h1>
 
+<h1>Лабораторная работа №6</h1>
+
+<h3>Задание №1:</h3>
+
+```python
+import argparse
+import sys
+import os
+
+
+sys.path.append('/Users/ars/Documents/GitHub/labs_python/src/lib/')
+
+from text import*
+
+
+def cat(input_path, number_lines):
+    with open(input_path, 'r', encoding='utf-8') as file:
+        for i, line in enumerate(file, 1):
+            if number_lines:
+                print(f"{i}:{line}", end='')
+
+
+
+def stats(input_text, n=5):
+    with open(input_text, 'r', encoding='utf-8') as f:
+        text = f.read()
+
+    tokens = tokenize(normalize(text))
+    freq = count_freq(tokens)
+    top_words = top_n(freq, n)
+
+    for word, count in top_words:
+        print(f"{word}: {count}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
+    subparsers = parser.add_subparsers(dest="command")
+
+    # Подкоманда cat
+    cat_parser = subparsers.add_parser("cat", help="Вывести содержимое файла")
+    cat_parser.add_argument("--input", required=True, help="Путь к файлу")
+    cat_parser.add_argument("-n", action="store_true", help="Нумеровать строки")
+
+    # Подкоманда stats
+    stats_parser = subparsers.add_parser("stats", help="Частоты слов в тексте")
+    stats_parser.add_argument("--input", required=True, help="Путь к текстовому файлу")
+    stats_parser.add_argument("--top", type=int, default=5, help="Количество слов в топе")
+
+    args = parser.parse_args()
+
+    if args.command == "cat":
+        cat(args.input, args.n)
+    if args.command == "stats":
+        stats(args.input, args.top)
+
+
+if __name__ == "__main__":
+    main()
+```
+![exe1.png](images/lab06/exe1_1.png)
+![exe1.png](images/lab06/exe1_2.png)
+
+<h3>Задание №2:</h3>
+
+```python
+import argparse
+import sys
+import os
+sys.path.append('/Users/ars/Documents/GitHub/labs_python/src/lab05/')
+
+from json_csv import*
+from csv_xlsx import*
+
+def json2csv(input_file, output_file):
+    json_to_csv(input_file, output_file)
+
+def csv2json(input_file, output_file):
+    csv_to_json(input_file, output_file)
+
+def csv2xlsx(input_file, output_file):
+    csv_to_xlsx(input_file, output_file)
+
+def main():
+    parser = argparse.ArgumentParser(description="Конвертеры данных")
+    sub = parser.add_subparsers(dest="cmd")
+
+    p1 = sub.add_parser("json2csv")
+    p1.add_argument("--in", dest="input", required=True)
+    p1.add_argument("--out", dest="output", required=True)
+
+    p2 = sub.add_parser("csv2json")
+    p2.add_argument("--in", dest="input", required=True)
+    p2.add_argument("--out", dest="output", required=True)
+
+    p3 = sub.add_parser("csv2xlsx")
+    p3.add_argument("--in", dest="input", required=True)
+    p3.add_argument("--out", dest="output", required=True)
+
+    args = parser.parse_args()
+
+    if args.cmd == "json2csv":
+        json2csv(args.input, args.output)
+    elif args.cmd == "csv2json":
+        csv2json(args.input, args.output)
+    elif args.cmd == "csv2xlsx":
+        csv2xlsx(args.input, args.output)
+if __name__ == "__main__":
+    main()
+```
+json to csv
+
+![exe1.png](images/lab06/exe2_1.png)
+
+csv to json
+
+![exe1.png](images/lab06/exe2_2.png)
+
+csv to xlsx
+
+![exe1.png](images/lab06/exe2_3.png)
+
+<h1>Лабораторная работа №5</h1>
+
+<h3>Задание №1:</h3>
+
+```python
+import json
+import csv
+from pathlib import*
+
+def json_to_csv(json_path: str, csv_path: str) -> None:
+    json_file = Path(json_path)
+    if not json_file.exists():
+        raise FileNotFoundError
+    
+    if json_file.suffix.lower() != '.json':
+        raise ValueError
+    
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    if not data:
+        raise ValueError
+    
+    fieldnames = list(data[0].keys())
+    
+    with open(csv_path, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in data:
+            writer.writerow({field: str(row.get(field, '')) for field in fieldnames})
+json_to_csv(f"data/samples/people_1.json", f"data/samples/people_1.csv")
+
+
+def csv_to_json(csv_path: str, json_path: str) -> None:
+    csv_file = Path(csv_path)
+    if not csv_file.exists():
+        raise FileNotFoundError
+    
+    if csv_file.suffix.lower() != '.csv':
+        raise ValueError
+    
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        data = list(reader)
+    
+    if not data:
+        raise ValueError
+    
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+csv_to_json(f"data/samples/people.csv",f"data/samples/people.json")
+```
+![exe1.png](images/lab05/exe1_1.png)
+![exe1.png](images/lab05/exe1_2.png)
+![exe1.png](images/lab05/exe2_1.png)
+![exe1.png](images/lab05/exe2_2.png)
+
+<h3>Задание №2:</h3>
+
+```python
+import csv
+import os
+from openpyxl import Workbook
+from openpyxl.utils import*
+
+
+def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f"Файл не найден: {csv_path}")
+    
+    if not csv_path.lower().endswith('.csv'):
+        raise ValueError("Входной файл должен иметь расширение .csv")
+    
+    if not xlsx_path.lower().endswith(".xlsx"):
+        raise ValueError("Выходной файл должен иметь расширение .xlsx")
+    
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        rows = list(reader)
+    
+    if not rows:
+        raise ValueError("CSV-файл пуст")
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Sheet1"
+
+    for row in rows:
+        ws.append(row)
+
+    for i, col in enumerate(ws.columns, start=1):
+        max_length = 0
+        for cell in col:
+            if cell.value:
+                max_length = max(max_length, len(str(cell.value)))
+        ws.column_dimensions[get_column_letter(i)].width = max(max_length, 8)
+
+    wb.save(xlsx_path)
+csv_to_xlsx("data/samples/peeople_2.csv", "data/output.xlsx")
+```
+![exe1.png](images/lab05/exe22_1.png)
+![exe1.png](images/lab05/exe22_2.png)
+
+
 <h1>Лабораторная работа №4</h1>
 
 <h3>Задание №1:</h3>

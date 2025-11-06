@@ -12,7 +12,7 @@ def cat(input_path, number_lines):
     with open(input_path, 'r', encoding='utf-8') as file:
         for i, line in enumerate(file, 1):
             if number_lines:
-                print(f"{i:6}:{line}", end='')
+                print(f"{i}:{line}", end='')
 
 
 
