@@ -1,5 +1,163 @@
 <h1>Программирование и алгоритмизация(Лабораторные работы)</h1>
 
+<h1>Лабораторная работа №7</h1>
+
+<h3>Задание A:</h3>
+
+```python
+import pytest
+import sys
+import os
+
+sys.path.append("/Users/ars/Documents/GitHub/labs_python/src/lib/")
+from text import *
+
+# normalize
+
+
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("ПрИвЕт\nМИр\t", "привет мир"),
+        ("ёжик, Ёлка", "ежик, елка"),
+        ("Hello\r\nWorld", "hello world"),
+        ("  двойные   пробелы  ", "двойные пробелы"),
+        ("", ""),
+    ],
+)
+def test_normalize(text, expected):
+    assert normalize(text) == expected
+
+
+# tokenize
+
+
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("привет мир", ["привет", "мир"]),
+        ("hello,world!!!", ["hello", "world"]),
+        ("по-настоящему круто", ["по-настоящему", "круто"]),
+        ("2025 год", ["2025", "год"]),
+        ("emoji 😀 не слово", ["emoji", "не", "слово"]),
+        ("", []),
+    ],
+)
+def test_tokenize(text, expected):
+    assert tokenize(text) == expected
+
+
+# count_freq
+
+
+@pytest.mark.parametrize(
+    "tokens, expected",
+    [
+        (["a", "b", "a", "c", "b", "a"], {"a": 3, "b": 2, "c": 1}),
+        (["bb", "aa", "bb", "aa", "cc"], {"aa": 2, "bb": 2, "cc": 1}),
+        ([], {}),
+    ],
+)
+def test_count_freq(tokens, expected):
+    assert count_freq(tokens) == expected
+
+
+# top_n
+
+
+@pytest.mark.parametrize(
+    "freq, n, expected",
+    [
+        ({"a": 3, "b": 2, "c": 1}, 2, [("a", 3), ("b", 2)]),
+        ({"aa": 2, "bb": 2, "cc": 1}, 2, [("aa", 2), ("bb", 2)]),
+        ({}, 5, []),
+        ({"a": 3}, 0, []),
+        ({"a": 3, "b": 2}, 10, [("a", 3), ("b", 2)]),
+    ],
+)
+def test_top_n(freq, n, expected):
+    assert top_n(freq, n) == expected
+```
+![exe1.png](images/lab07/test1.png)
+
+<h3>Задание B:</h3>
+
+```python
+import pytest
+import json
+import csv
+import sys
+from pathlib import Path
+
+sys.path.append("/Users/ars/Documents/GitHub/labs_python/src/lab05/")
+from json_csv import *
+from csv_xlsx import *
+
+# Позитивные сценарии
+
+
+def test_json_to_csv_positive(tmp_path: Path):
+    src = tmp_path / "input.json"
+    dst = tmp_path / "output.csv"
+    data = [
+        {"name": "Alice", "age": 22},
+        {"name": "Bob", "age": 25},
+    ]
+    src.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    json_to_csv(str(src), str(dst))
+    with dst.open(encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 2
+    assert set(rows[0].keys()) == {"name", "age"}
+    assert rows[0]["name"] == "Alice"
+
+
+def test_csv_to_json_positive(tmp_path: Path):
+    src = tmp_path / "input.csv"
+    dst = tmp_path / "output.json"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["name", "age"])
+        writer.writeheader()
+        writer.writerow({"name": "Alice", "age": "22"})
+        writer.writerow({"name": "Bob", "age": "25"})
+    csv_to_json(str(src), str(dst))
+    result = json.loads(dst.read_text(encoding="utf-8"))
+    assert len(result) == 2
+    assert set(result[0].keys()) == {"name", "age"}
+    assert result[1]["name"] == "Bob"
+
+
+# Негативные сценарии
+
+
+@pytest.mark.parametrize(
+    "case",
+    [
+        (json_to_csv, "json", "", ValueError),
+        (csv_to_json, "csv", "", ValueError),
+        (json_to_csv, "json", None, FileNotFoundError),
+        (csv_to_json, "csv", None, FileNotFoundError),
+    ]
+)
+def test_negative_cases(tmp_path: Path, case):
+    converter, ext, content, exc = case
+    src = tmp_path / f"bad.{ext}"
+    dst = tmp_path / "out.tmp"
+    if content is not None:
+        src.write_text(content, encoding="utf-8")
+    with pytest.raises(exc):
+        converter(str(src), str(dst))
+```
+![exe1.png](images/lab07/test2.png)
+
+<h3>Задание C:</h3>
+
+![exe1.png](images/lab07/black1.png)
+
+
+![exe1.png](images/lab07/black2.png)
+
+
 <h1>Лабораторная работа №6</h1>
 
 <h3>Задание №1:</h3>
