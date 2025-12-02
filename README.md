@@ -1,5 +1,115 @@
 <h1>Программирование и алгоритмизация(Лабораторные работы)</h1>
 
+<h1>Лабораторная работа №8</h1>
+
+<h3>Задание 1:</h3>
+
+```python
+from dataclasses import dataclass
+from datetime import datetime, date
+
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str  
+    group: str
+    gpa: float       
+
+    # Валидация
+    def __post_init__(self):
+        try:
+            datetime.strptime(self.birthdate, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("birthdate must be in format YYYY-MM-DD")
+        if not (0 <= self.gpa <= 5):
+            raise ValueError()
+
+    # Возраст
+    def age(self) -> int:
+        b = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
+        today = date.today()
+        years = today.year - b.year
+        if (today.month, today.day) < (b.month, b.day):
+            years -= 1
+        return years
+
+    # Сериализация
+    def to_dict(self) -> dict:
+        return {
+            "fio": self.fio,
+            "birthdate": self.birthdate,
+            "group": self.group,
+            "gpa": self.gpa,
+        }
+
+    # Десериализация
+    @classmethod
+    def from_dict(cls, d: dict):
+        return cls(
+            fio=d["fio"],
+            birthdate=d["birthdate"],
+            group=d["group"],
+            gpa=d["gpa"],
+        )
+    
+    def __str__(self):
+        return f" Студент: {self.fio}, группа {self.group}, GPA {self.gpa}, возраст {self.age()}"
+
+s = Student(fio="Иванов Петр", birthdate="2007-10-19", group="BIVT-25-8", gpa=4.8)
+print(s)
+```
+
+![exe1.png](images/lab08/exe1.png)
+
+<h3>Задание 2:</h3>
+
+```python
+import json
+from models import Student
+from pathlib import Path
+import sys
+import os
+sys.path.append('/Users/ars/Documents/GitHub/labs_python/src/lab08/')
+
+from models import *
+
+students=[Student(fio="Иванов Петр", birthdate="2007-10-19", group="BIVT-25-8", gpa=4.8),
+          Student(fio="Петров Иван", birthdate="2006-09-28", group="BIVT-25-12", gpa=4.6),]
+
+def students_to_json(students, path):
+    data = [s.to_dict() for s in students]
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def students_from_json(path) -> list[Student]:
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    if not isinstance(data, list):
+        raise ValueError()
+
+    students = []
+    for item in data:
+        if not isinstance(item, dict):
+            raise ValueError()
+        required = ["fio", "birthdate", "group", "gpa"]
+        for key in required:
+            if key not in item:
+                raise ValueError()
+        students.append(Student.from_dict(item))
+    return students
+
+base_dir = Path("/Users/ars/Documents/GitHub/labs_python")
+json_path = base_dir / "data" / "lab08" / "students_input.json"
+
+students_to_json(students, json_path)
+print(students_from_json(json_path))
+```
+
+![exe1.png](images/lab08/exe2.png)
+
+
 <h1>Лабораторная работа №7</h1>
 
 <h3>Задание A:</h3>
