@@ -79,18 +79,6 @@ class Group:
                 Student(**r)  
         self._write_all(rows)
 
-    def stats(self):
-        rows = self._read_all()
-        if not rows:
-            return {"count": 0, "average_gpa": 0, "top_5_students": []}
-        gpas = [float(r["gpa"]) for r in rows]
-        sorted_rows = sorted(rows, key=lambda x: float(x["gpa"]), reverse=True)
-        return {
-            "count": len(rows),
-            "average_gpa": round(sum(gpas) / len(gpas), 2),
-            "top_5_students": sorted_rows[:5]
-        }
-
 if __name__ == "__main__":
     group = Group("/Users/ars/Documents/GitHub/labs_python/data/lab09/students.csv")  
     
@@ -1070,6 +1058,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
