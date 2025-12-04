@@ -57,7 +57,10 @@ class Student:
         return f"Студент: {self.fio}, группа {self.group}, GPA {self.gpa}, возраст {self.age()}"
 
 s = Student(fio="Иванов Петр", birthdate="2007-10-19", group="BIVT-25-8", gpa=4.8)
-print(s)
+print(f"Возраст: {s.age()}")
+print(f"{s.to_dict()}")
+s.from_dict(s.to_dict())
+print(f"{s.__str__()}")
 ```
 
 ![exe1.png](images/lab08/exe1.png)
