@@ -67,34 +67,34 @@ if __name__=="__main__":
     s = Stack()
 
     print("Stack tests:")
-    print("Is empty:", s.is_empty())  # True
+    print("Is empty:", s.is_empty()) 
 
     s.push(10)
     s.push(20)
     s.push(30)
 
-    print("Peek:", s.peek())  # 30
-    print("Pop:", s.pop())    # 30
-    print("Pop:", s.pop())    # 20
+    print("Peek:", s.peek())  
+    print("Pop:", s.pop())   
+    print("Pop:", s.pop())  
     print("Len:", len(s))  # 1
-    print("Is empty:", s.is_empty())  # False
+    print("Is empty:", s.is_empty())  
 
 
 
     q = Queue()
 
     print("Queue tests:")
-    print("Is empty:", q.is_empty())  # True
+    print("Is empty:", q.is_empty())  
 
     q.enqueue("a")
     q.enqueue("b")
     q.enqueue("c")
 
-    print("Peek:", q.peek())  # a
-    print("Dequeue:", q.dequeue())  # a
-    print("Dequeue:", q.dequeue())  # b
-    print("Len:", len(q))  # 1
-    print("Is empty:", q.is_empty())  # False
+    print("Peek:", q.peek())  
+    print("Dequeue:", q.dequeue())  
+    print("Dequeue:", q.dequeue())  
+    print("Len:", len(q))  
+    print("Is empty:", q.is_empty())  
 ```
 
 ![exe1.png](images/lab10/exe1.png)
@@ -1286,6 +1286,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
