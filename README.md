@@ -70,7 +70,6 @@ if __name__=="__main__":
     print("Pop:", s.pop())    # 20
     print("Len:", len(s))  # 1
     print("Is empty:", s.is_empty())  # False
-    print()
 
 
 
@@ -88,7 +87,6 @@ if __name__=="__main__":
     print("Dequeue:", q.dequeue())  # b
     print("Len:", len(q))  # 1
     print("Is empty:", q.is_empty())  # False
-    print()
 ```
 
 ![exe1.png](images/lab10/exe1.png)
@@ -1280,6 +1278,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
