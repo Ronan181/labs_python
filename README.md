@@ -1,6 +1,214 @@
 <h1>Программирование и алгоритмизация(Лабораторные работы)</h1>
 
-<h1>Программирование и алгоритмизация(Лабораторные работы)</h1>
+<h1>Лабораторная работа №10</h1>
+
+<h3>Задание 1:</h3>
+
+```python
+from collections import deque
+
+
+class Stack:
+    def __init__(self):
+        self._data = []
+
+    def push(self, item):
+        self._data.append(item)
+
+    def pop(self):
+        if not self._data:
+            raise IndexError()
+        return self._data.pop()
+
+    def peek(self):
+        if not self._data:
+            return None
+        return self._data[-1]
+
+    def is_empty(self):
+        return len(self._data) == 0
+
+    def __len__(self):
+        return len(self._data)
+
+
+class Queue:
+    def __init__(self):
+        self._data = deque()
+
+    def enqueue(self, item):
+        self._data.append(item)
+
+    def dequeue(self):
+        if not self._data:
+            raise IndexError()
+        return self._data.popleft()
+
+    def peek(self):
+        if not self._data:
+            return None
+        return self._data[0]
+
+    def is_empty(self):
+        return len(self._data) == 0
+
+    def __len__(self):
+        return len(self._data)
+
+if __name__=="__main__":
+    s = Stack()
+
+    print("Stack tests:")
+    print("Is empty:", s.is_empty())  # True
+
+    s.push(10)
+    s.push(20)
+    s.push(30)
+
+    print("Peek:", s.peek())  # 30
+    print("Pop:", s.pop())    # 30
+    print("Pop:", s.pop())    # 20
+    print("Len:", len(s))  # 1
+    print("Is empty:", s.is_empty())  # False
+    print()
+
+
+
+    q = Queue()
+
+    print("Queue tests:")
+    print("Is empty:", q.is_empty())  # True
+
+    q.enqueue("a")
+    q.enqueue("b")
+    q.enqueue("c")
+
+    print("Peek:", q.peek())  # a
+    print("Dequeue:", q.dequeue())  # a
+    print("Dequeue:", q.dequeue())  # b
+    print("Len:", len(q))  # 1
+    print("Is empty:", q.is_empty())  # False
+    print()
+```
+
+![exe1.png](images/lab10/exe1.png)
+
+
+<h3>Задание 2:</h3>
+
+```python
+class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None 
+        self._size = 0
+
+    def append(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+
+        self._size += 1
+    
+    def prepend(self, value):
+        new_node = Node(value, next=self.head)
+        self.head = new_node
+        if self.tail is None:
+            self.tail = new_node
+        self._size += 1
+
+    def insert(self, idx, value):
+        if idx < 0 or idx > self._size:
+            raise IndexError()
+
+        if idx == 0:
+            self.prepend(value)
+            return
+
+        if idx == self._size:
+            self.append(value)
+            return
+
+        current = self.head
+        for _ in range(idx - 1):
+            current = current.next
+
+        new_node = Node(value, current.next)
+        current.next = new_node
+        self._size += 1
+
+    def remove_at(self, idx):
+        if idx < 0 or idx >= self._size:
+            raise IndexError()
+
+        if idx == 0:
+            removed = self.head
+            self.head = self.head.next
+            if self.head is None:
+                self.tail = None
+            self._size -= 1
+            return removed.value
+
+        current = self.head
+        for _ in range(idx - 1):
+            current = current.next
+
+        removed = current.next
+        current.next = removed.next
+
+        if removed is self.tail:
+            self.tail = current
+
+        self._size -= 1
+        return removed.value
+
+    def __iter__(self):
+        current = self.head
+        while current is not None:
+            yield current.value
+            current = current.next
+
+    def __len__(self):
+        return self._size
+
+    def __repr__(self):
+        values = list(self)
+        return f"SinglyLinkedList({values})"
+
+if __name__=="__main__":
+    print("Тесты SinglyLinkedList")
+
+    l = SinglyLinkedList()
+
+    l.append(1)
+    l.append(2)
+    l.append(3)
+    print("После append:", list(l)) 
+
+    l.prepend(0)
+    print("После prepend:", list(l))  
+
+    l.insert(2, 99)
+    print("После insert:", list(l))
+    
+    removed = l.remove_at(3)
+    print("remove_at(3) вернул:", removed)  
+    print("После remove_at:", list(l))  
+    print("len:", len(l))
+    print("repr:", repr(l))
+```
+
+![exe1.png](images/lab10/exe2.png)
 
 <h1>Лабораторная работа №9</h1>
 
