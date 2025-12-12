@@ -306,40 +306,6 @@ class Group:
             "average_gpa": round(sum(gpas) / len(gpas), 2),
             "top_5_students": sorted_rows[:5]
         }
-
-if __name__ == "__main__":
-    group = Group("/Users/ars/Documents/GitHub/labs_python/data/lab09/students.csv")  
-    
-    if group.path.exists():
-        group.path.unlink()
-    group._ensure_storage_exists()
-
-    students_to_add = [
-        Student("Морозов Дмитрий", "2006-11-11", "БИВТ-25-2", 4.9),
-        Student("Алексеева Дарья", "2003-04-29", "БИВТ-24-4", 3.1),
-        Student("Гусев Никита", "2009-02-28", "БИВТ-23-3", 3.6),
-        Student("Фролова Валентина", "2001-06-20", "БИВТ-22-3", 4.8),
-        Student("Семенова Елена", "2002-01-14", "БИВТ-20-1", 4.5)
-    ]
-    
-    for student in students_to_add:
-        group.add(student)
-
-    print("\nВсе студенты:")
-    all_students = group.list()
-    if not all_students:
-        print("  Нет студентов!")
-    else:
-        for student in all_students:
-            print(f"  {student}")
-
-    print("\nПоиск по 'Морозов':")
-    found = group.find("Морозов")
-    if not found:
-        print("  Не найдено")
-    else:
-        for student in found:
-            print(f"  {student}")
 ```
 До запуска кода
 
@@ -1286,6 +1252,7 @@ for i in range(first_mem,last_mem+1,distance):
 print('out:',''.join(stroka))
 ```
 ![exe7.png](images/lab01/exe7.png)
+
 
 
 
